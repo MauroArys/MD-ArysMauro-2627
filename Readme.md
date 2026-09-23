@@ -1,7 +1,7 @@
 # Mobile Development - Mauro Arys - 2627
 
 * Jaar : 2026-2027
-* Naam : **SCHRIJF HIER JE EIGEN NAAM**
+* Naam : Mauro Arys
 
 ## Linken
 
