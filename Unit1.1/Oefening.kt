@@ -66,8 +66,6 @@ fun subtract(firstNumber: Int, secondNumber: Int): Int {
 fun oefening7() {
     val firstUserEmailId = "user_one@gmail.com"
 
-    // The following line of code assumes that you named your parameter as emailId. 
-    // If you named it differently, feel free to update the name.
     println(displayAlertMessage(emailId = firstUserEmailId))
     println()
 
