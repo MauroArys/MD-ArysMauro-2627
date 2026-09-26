@@ -75,7 +75,7 @@ fun BusinessCard() {
             ) {
                 Text(
                     text = "Mauro Arys",
-                    fontSize = 32.sp,
+                    fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
