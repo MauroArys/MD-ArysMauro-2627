@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Eightball</string>
+    <string name="result_1">It is certain</string>
+    <string name="result_2">It is decidedly so</string>
+    <string name="result_3">Without a doubt</string>
+    <string name="result_4">Yes, definitely</string>
+    <string name="result_5">You may rely on it</string>
+    <string name="result_6">As I see it, yes</string>
+    <string name="result_7">Most likely</string>
+    <string name="result_8">Outlook good</string>
+    <string name="result_9">Signs point to yes</string>
+    <string name="result_10">Yes</string>
+    <string name="result_11">Reply hazy, try again</string>
+    <string name="result_12">Ask again later</string>
+    <string name="result_13">Better not tell you now</string>
+    <string name="result_14">Cannot predict now</string>
+    <string name="result_15">Concentrate and ask again</string>
+    <string name="result_16">Don\'t bet on it</string>
+    <string name="result_17">My reply is no</string>
+    <string name="result_18">My sources say no</string>
+    <string name="result_19">Outlook not so good</string>
+    <string name="result_20">Very doubtful</string>
+    <string name="get_answer">Get Answer</string>
+</resources>
