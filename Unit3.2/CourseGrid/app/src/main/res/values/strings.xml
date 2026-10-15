@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CourseGrid</string>
+    <string name="application_development">Application Development</string>
+    <string name="mobile_development">Mobile Development</string>
+    <string name="wplb">Werkplekleren B</string>
+    <string name="wplc">Werkplekleren C</string>
+    <string name="levenslang_leren">Levenslang Leren</string>
+
+
+</resources>
