@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">ThirtyDays</string>
+    <string name="tip1_title">Doe 10 keepy-uppies</string>
+    <string name="tip1_desc">Probeer de bal 10 keer hoog te houden zonder dat hij valt.</string>
+
+    <string name="tip2_title">Bekijk een klassiek doelpunt</string>
+    <string name="tip2_desc">Zoek een legendarisch goalmoment op YouTube.</string>
+
+    <string name="tip3_title">Leer een nieuwe truc</string>
+    <string name="tip3_desc">Oefen een step-over of een rainbow flick.</string>
+
+    <string name="tip4_title">Lees over je favoriete club</string>
+    <string name="tip4_desc">Bezoek de officiële website van jouw favoriete club.</string>
+
+    <string name="tip5_title">Speel een mini-wedstrijdje</string>
+    <string name="tip5_desc">Nodig vrienden uit voor een 3-tegen-3 wedstrijd.</string>
+
+    <string name="tip6_title">Kijk een voetbalfilm</string>
+    <string name="tip6_desc">Ontspan met een leuke voetbalfilm.</string>
+
+    <string name="tip7_title">Doe een warming-up</string>
+    <string name="tip7_desc">Stretch en jog 5 minuten voor een betere training.</string>
+
+    <string name="tip8_title">Volg een voetbalpodcast</string>
+    <string name="tip8_desc">Luister naar analyses of interviews met spelers.</string>
+
+    <string name="tip9_title">Test je kennis</string>
+    <string name="tip9_desc">Maak een quiz over WK-geschiedenis.</string>
+
+    <string name="tip10_title">Plan een stadionbezoek</string>
+    <string name="tip10_desc">Zoek een wedstrijd in de buurt en plan een bezoek.</string>
+</resources>
