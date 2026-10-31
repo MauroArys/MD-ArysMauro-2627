@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">ProjectArysMauro</string>
+    <string name="add_recipe_title">Nieuw recept toevoegen</string>
+
+    <string name="add_recipe_field_title">Titel</string>
+    <string name="add_recipe_field_time">Tijd (minuten)</string>
+    <string name="add_recipe_field_ingredients">Ingrediënten</string>
+    <string name="add_recipe_field_steps">Bereiding</string>
+
+    <string name="add_recipe_save">Opslaan</string>
+    <string name="add_recipe_back">Terug</string>
+
+    <string name="tab_all_recipes">Alle recepten</string>
+    <string name="tab_my_recipes">Mijn recepten</string>
+    <string name="tab_profile">Profiel</string>
+
+    <string name="search_my_recipes">Zoeken in mijn recepten</string>
+
+    <!-- Profiel kaart -->
+    <string name="profile_name">Naam:</string>
+    <string name="profile_student_number">Studentnummer:</string>
+    <string name="profile_alias">Alias:</string>
+
+    <!-- Titels -->
+    <string name="profile_alias_update">Alias aanpassen</string>
+
+    <!-- TextField -->
+    <string name="profile_new_alias">Nieuwe alias</string>
+
+    <!-- Buttons -->
+    <string name="profile_save">Opslaan</string>
+    <string name="profile_saving">Opslaan...</string>
+
+
+    <string name="label_likes">Likes:</string>
+    <string name="label_date">Datum:</string>
+    <string name="verwijder_recept">Verwijder recept</string>
+
+
+    <!-- Detail labels -->
+    <string name="detail_by">Door:</string>
+    <string name="detail_time">Tijd:</string>
+    <string name="detail_minutes">minuten</string>
+
+    <!-- Secties -->
+    <string name="detail_ingredients">Ingrediënten</string>
+    <string name="detail_steps">Bereiding</string>
+
+    <!-- Share -->
+    <string name="detail_share_text">Check dit recept:</string>
+    <string name="detail_share_title">Recept delen</string>
+    <string name="detail_share_button">Delen</string>
+    <string name="detail_like_button">Like</string>
+
+    <!-- Buttons -->
+    <string name="detail_back">Terug</string>
+
+    <string name="search_all_recipes">Zoeken</string>
+    <string name="detail_title">Details</string>
+
+    <string name="fab_sort">Sorteer</string>
+    <string name="fab_add_recipe">Recept toevoegen</string>
+
+
+</resources>
