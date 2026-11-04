@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -33,6 +34,10 @@ fun RecipeDetailScreen(
 
     val uiState by viewModel.uiState.collectAsState()
     val currentRecipe = uiState.recipes.firstOrNull { it.id == recipeId }
+    //voer deze code uit wanneer key verandert!
+    LaunchedEffect(recipeId) {
+        viewModel.clearLikes();
+    }
 
     if (currentRecipe == null) {
         onBack()
@@ -71,7 +76,7 @@ fun RecipeDetailScreen(
 
                 Spacer(Modifier.height(12.dp))
 
-
+                // Like‑knop
                 if (currentRecipe.gebruikerAangemaaktAlias != huidigeGebruiker) {
                     IconButton(
                         onClick = {
@@ -94,6 +99,16 @@ fun RecipeDetailScreen(
                                 MaterialTheme.colorScheme.outline
                         )
                     }
+                }
+
+                Spacer(Modifier.height(12.dp))
+
+                // Knop: wie heeft geliked?
+                Button(
+                    onClick = { viewModel.loadLikesForRecipe(recipeId) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Wie heeft geliked?")
                 }
             }
         }
@@ -120,7 +135,32 @@ fun RecipeDetailScreen(
 
         Spacer(Modifier.height(32.dp))
 
-        // Knoppen
+
+        if (viewModel.likesForRecipe.isNotEmpty()) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            ) {
+                Column(Modifier.padding(16.dp)) {
+                    Text(
+                        text = "Geliked door:",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                    Spacer(Modifier.height(8.dp))
+
+                    viewModel.likesForRecipe.forEach { like ->
+                        Text("- ${like.alias}")
+                    }
+                }
+            }
+
+            Spacer(Modifier.height(24.dp))
+        }
+
+        // Knoppen onderaan
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -134,7 +174,6 @@ fun RecipeDetailScreen(
                     val shareText = "Deel dit recept: ${currentRecipe.titel}"
                     val shareTitle = "Recept delen"
 
-
                     val intent = Intent(Intent.ACTION_SEND).apply {
                         putExtra(Intent.EXTRA_TEXT, shareText)
                         type = "text/plain"
@@ -144,7 +183,6 @@ fun RecipeDetailScreen(
                 }
             ) {
                 Text(stringResource(R.string.detail_share))
-
             }
 
             // Terug

@@ -56,5 +56,10 @@ interface RecipesApiService {
         @Path("id") id: Int
     ): Response<Unit>
 
+    @GET("recepten/{id}/likes")
+    suspend fun getLikes(
+        @HeaderMap headers: Map<String, String>,
+        @Path("id") id: Int
+    ): LikeResponse2
 
 }

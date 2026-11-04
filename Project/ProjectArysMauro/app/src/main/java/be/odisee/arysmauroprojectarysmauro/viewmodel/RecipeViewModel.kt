@@ -15,8 +15,12 @@ import kotlinx.coroutines.launch
 
 class RecipeViewModel : ViewModel() {
 
+    //States
     private val _uiState = MutableStateFlow(RecipeUiState())
     val uiState: StateFlow<RecipeUiState> = _uiState.asStateFlow()
+
+    var likesForRecipe by mutableStateOf<List<LikeInfo>>(emptyList())
+        private set
 
     var backendErrors by mutableStateOf<List<String>>(emptyList())
         private set
@@ -59,6 +63,7 @@ class RecipeViewModel : ViewModel() {
         }
     }
 
+    //Gebruiker laden
     fun loadGebruiker() {
         viewModelScope.launch {
             try {
@@ -75,7 +80,7 @@ class RecipeViewModel : ViewModel() {
     }
 
 
-
+    // Alias updaten
     fun updateAlias(nieuweAlias: String) {
         viewModelScope.launch {
             try {
@@ -93,6 +98,7 @@ class RecipeViewModel : ViewModel() {
         }
     }
 
+    // Mijn recepten laden
     fun loadMijnRecepten(gebruikerId: Int) {
         viewModelScope.launch {
             try {
@@ -108,6 +114,7 @@ class RecipeViewModel : ViewModel() {
         }
     }
 
+    //Recept toevoegen
     fun addRecipe(
         titel: String,
         ingredienten: String,
@@ -144,6 +151,7 @@ class RecipeViewModel : ViewModel() {
             }
         }
     }
+    //Recept liken
     fun likeRecipe(id: Int) {
         viewModelScope.launch {
             try {
@@ -178,7 +186,7 @@ class RecipeViewModel : ViewModel() {
             }
         }
     }
-
+    //Recept unliken
     fun deleteLike(id: Int) {
         viewModelScope.launch {
             try {
@@ -217,6 +225,29 @@ class RecipeViewModel : ViewModel() {
         }
     }
 
+    //Tonen wie er geliked heeft
+    fun loadLikesForRecipe(id: Int) {
+        viewModelScope.launch {
+            try {
+                val response = RecipesApi.retrofitService.getLikes(headers, id)
+
+                if (response.status == 200) {
+                    likesForRecipe = response.data
+                } else {
+                    println("Kon likes niet laden: ${response.status}")
+                }
+
+            } catch (e: Exception) {
+                println("Kon likes niet laden: ${e.message}")
+            }
+        }
+    }
+    //Likes verwijderen
+    fun clearLikes() {
+        likesForRecipe = emptyList()
+    }
+
+    //Recept verwijderen
     fun deleteRecipe(recipe: Recipe) {
         viewModelScope.launch {
             try {
@@ -242,7 +273,7 @@ class RecipeViewModel : ViewModel() {
         }
     }
 
-
+    //Sorteer op likes of datum
     fun toggleSort() {
         _uiState.update {
             it.copy(
@@ -251,14 +282,4 @@ class RecipeViewModel : ViewModel() {
         }
     }
 
-    fun sortedRecipes(): List<Recipe> {
-        return when (_uiState.value.sortType) {
-            SortType.LIKES -> _uiState.value.recipes.sortedByDescending { it.likes }
-            SortType.DATUM -> _uiState.value.recipes.sortedByDescending { it.datumAangemaakt }
-        }
-    }
-
-    fun getRecipeById(id: Int): Recipe? {
-        return _uiState.value.recipes.find { it.id == id }
-    }
 }

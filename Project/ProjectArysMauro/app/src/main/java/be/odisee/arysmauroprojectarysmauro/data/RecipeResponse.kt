@@ -33,4 +33,18 @@ data class LikeResponse(
     val status: Int,
     val message: String
 )
+@Serializable
+data class LikeInfo(
+    val id: Int,
+    val gebruikerId: Int,
+    val alias: String,
+    val datum: String
+)
+@Serializable
+data class LikeResponse2(
+    val status: Int,
+    val data: List<LikeInfo>
+)
+
+
 
