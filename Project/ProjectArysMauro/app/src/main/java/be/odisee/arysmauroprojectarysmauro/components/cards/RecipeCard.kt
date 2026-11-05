@@ -70,7 +70,7 @@ fun RecipeCard(
                                 Icons.Outlined.Favorite,
                             contentDescription = null,
                             tint = if (isLiked)
-                                Color(0xFF8B4513)
+                                Color.Red
                             else
                                 MaterialTheme.colorScheme.outline
                         )

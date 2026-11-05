@@ -49,6 +49,8 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.runtime.ktx)
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
     // Retrofit
     implementation(libs.retrofit)
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")

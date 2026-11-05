@@ -1,6 +1,7 @@
 package be.odisee.arysmauroprojectarysmauro.components.detail
 
 import android.content.Intent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,16 +10,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import be.odisee.arysmauroprojectarysmauro.R
 import be.odisee.arysmauroprojectarysmauro.viewmodel.RecipeViewModel
 
@@ -31,10 +33,10 @@ fun RecipeDetailScreen(
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
-
     val uiState by viewModel.uiState.collectAsState()
     val currentRecipe = uiState.recipes.firstOrNull { it.id == recipeId }
-    //voer deze code uit wanneer key verandert!
+
+    // Voer deze code uit wanneer key verandert!
     LaunchedEffect(recipeId) {
         viewModel.clearLikes();
     }
@@ -50,65 +52,86 @@ fun RecipeDetailScreen(
             .verticalScroll(rememberScrollState())
             .padding(20.dp)
     ) {
-        // Titel
-        Text(
-            text = currentRecipe.titel,
-            style = MaterialTheme.typography.headlineMedium,
-            fontSize = 28.sp
-        )
+        // Titel + afbeelding samen als header
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = currentRecipe.titel,
+                style = MaterialTheme.typography.headlineMedium,
+                fontSize = 28.sp,
+                color = MaterialTheme.colorScheme.primary
+            )
 
-        Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(12.dp))
+
+            if (!currentRecipe.afbeelding.isNullOrBlank()) {
+                AsyncImage(
+                    model = currentRecipe.afbeelding,
+                    contentDescription = currentRecipe.titel,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(240.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                    contentScale = ContentScale.Crop
+                )
+
+                Spacer(Modifier.height(16.dp))
+            }
+        }
 
         // Info‑kaart
         Card(
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(16.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant
             ),
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(Modifier.padding(16.dp)) {
-
                 Text("${stringResource(R.string.detail_by)} ${currentRecipe.gebruikerAangemaaktAlias}")
                 Text("${stringResource(R.string.label_likes)} ${currentRecipe.likes}")
                 Text("${stringResource(R.string.detail_time)} ${currentRecipe.tijd} ${stringResource(R.string.detail_minutes)}")
                 Text("${stringResource(R.string.label_date)} ${currentRecipe.datumAangemaakt}")
 
-                Spacer(Modifier.height(12.dp))
+                Spacer(Modifier.height(16.dp))
 
-                // Like‑knop
-                if (currentRecipe.gebruikerAangemaaktAlias != huidigeGebruiker) {
-                    IconButton(
-                        onClick = {
-                            if (currentRecipe.gebruikerGeliked == 1) {
-                                viewModel.deleteLike(currentRecipe.id)
-                            } else {
-                                viewModel.likeRecipe(currentRecipe.id)
-                            }
-                        }
-                    ) {
-                        Icon(
-                            imageVector = if (currentRecipe.gebruikerGeliked == 1)
-                                Icons.Filled.Favorite
-                            else
-                                Icons.Outlined.Favorite,
-                            contentDescription = stringResource(R.string.detail_like_button),
-                            tint = if (currentRecipe.gebruikerGeliked == 1)
-                                Color(0xFF8B4513)
-                            else
-                                MaterialTheme.colorScheme.outline
-                        )
-                    }
-                }
-
-                Spacer(Modifier.height(12.dp))
-
-                // Knop: wie heeft geliked?
-                Button(
-                    onClick = { viewModel.loadLikesForRecipe(recipeId) },
-                    modifier = Modifier.fillMaxWidth()
+                // Like + "Wie heeft geliked?" samen
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Wie heeft geliked?")
+                    if (currentRecipe.gebruikerAangemaaktAlias != huidigeGebruiker) {
+                        IconButton(
+                            onClick = {
+                                if (currentRecipe.gebruikerGeliked == 1) {
+                                    viewModel.deleteLike(currentRecipe.id)
+                                } else {
+                                    viewModel.likeRecipe(currentRecipe.id)
+                                }
+                            }
+                        ) {
+                            Icon(
+                                imageVector = if (currentRecipe.gebruikerGeliked == 1)
+                                    Icons.Filled.Favorite
+                                else
+                                    Icons.Outlined.Favorite,
+                                contentDescription = stringResource(R.string.detail_like_button),
+                                tint = if (currentRecipe.gebruikerGeliked == 1)
+                                    Color.Red
+                                else
+                                    MaterialTheme.colorScheme.outline
+                            )
+                        }
+                    }
+
+                    Button(
+                        onClick = { viewModel.loadLikesForRecipe(recipeId) },
+                        shape = RoundedCornerShape(50),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8B4513))
+                    ) {
+                        Text("Wie heeft geliked?")
+                    }
                 }
             }
         }
@@ -116,26 +139,24 @@ fun RecipeDetailScreen(
         Spacer(Modifier.height(24.dp))
 
         // Ingrediënten
-        Text(
-            text = stringResource(R.string.detail_ingredients),
-            style = MaterialTheme.typography.titleLarge
-        )
+        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+        Spacer(Modifier.height(16.dp))
+        Text("Ingrediënten", style = MaterialTheme.typography.titleLarge)
         Spacer(Modifier.height(8.dp))
         Text(currentRecipe.ingredienten.replace("\\n", "\n"))
 
         Spacer(Modifier.height(24.dp))
 
         // Stappen
-        Text(
-            text = stringResource(R.string.detail_steps),
-            style = MaterialTheme.typography.titleLarge
-        )
+        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+        Spacer(Modifier.height(16.dp))
+        Text("Bereiding", style = MaterialTheme.typography.titleLarge)
         Spacer(Modifier.height(8.dp))
         Text(currentRecipe.stappen.replace("\\n", "\n"))
 
         Spacer(Modifier.height(32.dp))
 
-
+        // Likes‑lijst
         if (viewModel.likesForRecipe.isNotEmpty()) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -144,13 +165,8 @@ fun RecipeDetailScreen(
                 )
             ) {
                 Column(Modifier.padding(16.dp)) {
-                    Text(
-                        text = "Geliked door:",
-                        style = MaterialTheme.typography.titleLarge
-                    )
-
+                    Text("Geliked door:", style = MaterialTheme.typography.titleLarge)
                     Spacer(Modifier.height(8.dp))
-
                     viewModel.likesForRecipe.forEach { like ->
                         Text("- ${like.alias}")
                     }
@@ -167,26 +183,27 @@ fun RecipeDetailScreen(
                 .padding(top = 16.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-
-            // Delen
             Button(
                 onClick = {
                     val shareText = "Deel dit recept: ${currentRecipe.titel}"
                     val shareTitle = "Recept delen"
-
                     val intent = Intent(Intent.ACTION_SEND).apply {
                         putExtra(Intent.EXTRA_TEXT, shareText)
                         type = "text/plain"
                     }
-
                     context.startActivity(Intent.createChooser(intent, shareTitle))
-                }
+                },
+                shape = RoundedCornerShape(50),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8B4513))
             ) {
                 Text(stringResource(R.string.detail_share))
             }
 
-            // Terug
-            Button(onClick = onBack) {
+            Button(
+                onClick = onBack,
+                shape = RoundedCornerShape(50),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            ) {
                 Text(stringResource(R.string.detail_back))
             }
         }
