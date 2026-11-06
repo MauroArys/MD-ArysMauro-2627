@@ -45,6 +45,30 @@ data class LikeResponse2(
     val status: Int,
     val data: List<LikeInfo>
 )
+@Serializable
+data class Comment(
+    val id: Int,
+    val gebruikerId: Int,
+    val alias: String,
+    val datum: String,
+    val commentaar: String
+)
+@Serializable
+data class CommentResponse(
+    val status: Int,
+    val data: List<Comment>
+)
+@Serializable
+data class AddCommentRequest(
+    val commentaar: String
+)
+@Serializable
+data class AddCommentResponse(
+    val status: Int,
+    val message: String,
+    val id: Int? = null,
+    val ontbrekendeVelden: List<String>? = null
+)
 
 
 

@@ -80,7 +80,11 @@
 
     <string name="new_recipe">Nieuw</string>
 
+    <string name="comments">Reacties</string>
 
+    <string name="comment">Reactie</string>
+    <string name="place_comment">Plaatsen</string>
 
+    <string name="update_comment">Opslaan</string>
 
 </resources>

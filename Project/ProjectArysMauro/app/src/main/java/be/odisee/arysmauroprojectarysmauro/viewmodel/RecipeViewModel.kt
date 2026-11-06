@@ -22,6 +22,9 @@ class RecipeViewModel : ViewModel() {
     var likesForRecipe by mutableStateOf<List<LikeInfo>>(emptyList())
         private set
 
+    var commentsForRecipe by mutableStateOf<List<Comment>>(emptyList())
+        private set
+
     var backendErrors by mutableStateOf<List<String>>(emptyList())
         private set
 
@@ -269,6 +272,96 @@ class RecipeViewModel : ViewModel() {
 
             } catch (e: Exception) {
                 println("Kon recept niet verwijderen: ${e.message}")
+            }
+        }
+    }
+
+    fun loadCommentsForRecipe(id: Int) {
+        viewModelScope.launch {
+            try {
+                val response =
+                    RecipesApi.retrofitService.getComments(
+                        headers,
+                        id
+                    )
+                commentsForRecipe = response.data
+
+
+            } catch (e: Exception) {
+                println("Kon comments niet laden: ${e.message}")
+            }
+        }
+    }
+
+    fun clearComments() {
+        commentsForRecipe = emptyList()
+    }
+
+    fun addComment(
+        recipeId: Int,
+        commentaar: String
+    ) {
+        viewModelScope.launch {
+            try {
+
+                val response =
+                    RecipesApi.retrofitService.addComment(
+                        headers,
+                        recipeId,
+                        AddCommentRequest(commentaar)
+                    )
+
+                if (response.status == 200) {
+                    loadCommentsForRecipe(recipeId)
+                }
+
+            } catch (e: Exception) {
+                println("Kon comment niet toevoegen: ${e.message}")
+            }
+        }
+    }
+
+    fun deleteComment(recipeId: Int) {
+        viewModelScope.launch {
+            try {
+                val response =
+                    RecipesApi.retrofitService.deleteComment(
+                        headers,
+                        recipeId
+                    )
+
+                if (response.status == 200) {
+                    loadCommentsForRecipe(recipeId)
+                }
+
+            } catch (e: Exception) {
+                println("Kon comment niet verwijderen: ${e.message}")
+            }
+        }
+    }
+
+    fun updateComment(
+        recipeId: Int,
+        commentId: Int,
+        commentaar: String
+    ) {
+        viewModelScope.launch {
+            try {
+
+                val response =
+                    RecipesApi.retrofitService.updateComment(
+                        headers,
+                        recipeId,
+                        commentId,
+                        AddCommentRequest(commentaar)
+                    )
+
+                if (response.status == 200) {
+                    loadCommentsForRecipe(recipeId)
+                }
+
+            } catch (e: Exception) {
+                println("Kon comment niet aanpassen: ${e.message}")
             }
         }
     }

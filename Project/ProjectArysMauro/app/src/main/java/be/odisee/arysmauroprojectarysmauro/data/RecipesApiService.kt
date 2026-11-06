@@ -62,4 +62,30 @@ interface RecipesApiService {
         @Path("id") id: Int
     ): LikeResponse2
 
+    @GET("recepten/{id}/comments")
+    suspend fun getComments(
+        @HeaderMap headers: Map<String, String>,
+        @Path("id") receptId: Int
+    ): CommentResponse
+
+    @POST("recepten/{id}/comment")
+    suspend fun addComment(
+        @HeaderMap headers: Map<String, String>,
+        @Path("id") receptId: Int,
+        @Body request: AddCommentRequest
+    ): AddCommentResponse
+
+    @DELETE("recepten/{id}/comment")
+    suspend fun deleteComment(
+        @HeaderMap headers: Map<String, String>,
+        @Path("id") recipeId: Int
+    ): LikeResponse
+
+    @POST("recepten/{id}/comment/{id2}")
+    suspend fun updateComment(
+        @HeaderMap headers: Map<String, String>,
+        @Path("id") recipeId: Int,
+        @Path("id2") commentId: Int,
+        @Body request: AddCommentRequest
+    ): LikeResponse
 }

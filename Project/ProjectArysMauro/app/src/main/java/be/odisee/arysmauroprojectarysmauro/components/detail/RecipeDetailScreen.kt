@@ -7,6 +7,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.*
@@ -35,10 +37,26 @@ fun RecipeDetailScreen(
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState()
     val currentRecipe = uiState.recipes.firstOrNull { it.id == recipeId }
+    var commentText by remember {
+        mutableStateOf("")
+    }
+
+    val heeftAlComment =
+        viewModel.commentsForRecipe.any {
+            it.alias.equals(huidigeGebruiker, ignoreCase = true)
+        }
+
+    var editingCommentId by remember {
+        mutableStateOf<Int?>(null)
+    }
+
 
     // Voer deze code uit wanneer key verandert!
     LaunchedEffect(recipeId) {
         viewModel.clearLikes();
+        viewModel.clearComments();
+
+        viewModel.loadCommentsForRecipe(recipeId);
     }
 
     if (currentRecipe == null) {
@@ -156,24 +174,181 @@ fun RecipeDetailScreen(
 
         Spacer(Modifier.height(32.dp))
 
-        // Likes‑lijst
+        //likes-lijst
         if (viewModel.likesForRecipe.isNotEmpty()) {
+
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             ) {
-                Column(Modifier.padding(16.dp)) {
-                    Text("Geliked door:", style = MaterialTheme.typography.titleLarge)
-                    Spacer(Modifier.height(8.dp))
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+
+                    Text(
+                        text = "Geliked door:",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                    Spacer(
+                        modifier = Modifier.height(8.dp)
+                    )
+
                     viewModel.likesForRecipe.forEach { like ->
-                        Text("- ${like.alias}")
+
+                        Text(
+                            text = "- ${like.alias}"
+                        )
                     }
                 }
             }
 
-            Spacer(Modifier.height(24.dp))
+            Spacer(
+                modifier = Modifier.height(24.dp)
+            )
+        }
+
+        // Comments‑lijst
+        if (viewModel.commentsForRecipe.isNotEmpty()) {
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+
+                    Text(
+                        text = stringResource(R.string.comments),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    viewModel.commentsForRecipe.forEach { comment ->
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+
+                            Text(
+                                text = comment.alias,
+                                style = MaterialTheme.typography.titleSmall
+                            )
+
+                            if (comment.alias == huidigeGebruiker) {
+
+                                Row {
+
+                                    IconButton(
+                                        onClick = {
+                                            commentText = comment.commentaar
+                                            editingCommentId = comment.id
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Edit,
+                                            contentDescription = "Bewerk comment"
+                                        )
+                                    }
+
+                                    IconButton(
+                                        onClick = {
+                                            viewModel.deleteComment(recipeId)
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Delete,
+                                            contentDescription = "Verwijder comment"
+                                        )
+                                    }
+                                }
+                            }
+                        }
+
+                        Text(
+                            text = comment.commentaar
+                        )
+
+                        Spacer(
+                            modifier = Modifier.height(8.dp)
+                        )
+
+                        HorizontalDivider()
+                    }
+                }
+            }
+
+            Spacer(
+                modifier = Modifier.height(24.dp)
+            )
+        }
+        if (currentRecipe.gebruikerAangemaaktAlias != huidigeGebruiker && (!heeftAlComment ||
+                    editingCommentId != null))
+             {
+
+            OutlinedTextField(
+                value = commentText,
+                onValueChange = {
+                    if (it.length <= 255) {
+                        commentText = it
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+                label = {
+                    Text(stringResource(R.string.comment))
+                }
+            )
+
+            Spacer(
+                modifier = Modifier.height(8.dp)
+            )
+
+            Button(
+                onClick = {
+                    if (commentText.isNotBlank()) {
+
+                        if (editingCommentId == null) {
+
+                            viewModel.addComment(
+                                currentRecipe.id,
+                                commentText
+                            )
+
+                        } else {
+
+                            viewModel.updateComment(
+                                currentRecipe.id,
+                                editingCommentId!!,
+                                commentText
+                            )
+
+                            editingCommentId = null
+                        }
+
+                        commentText = ""
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    if (editingCommentId == null)
+                        stringResource(R.string.place_comment)
+                    else
+                        stringResource(R.string.update_comment)
+                )
+            }
+
+            Spacer(
+                modifier = Modifier.height(24.dp)
+            )
         }
 
         // Knoppen onderaan
