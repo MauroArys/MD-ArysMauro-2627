@@ -1,19 +1,17 @@
 package be.odisee.arysmauroprojectarysmauro.components.recipes
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import be.odisee.arysmauroprojectarysmauro.data.Recipe
 import be.odisee.arysmauroprojectarysmauro.R
 import be.odisee.arysmauroprojectarysmauro.components.cards.RecipeCard
+import be.odisee.arysmauroprojectarysmauro.data.Recipe
 
 @Composable
 fun RecipesList(
@@ -32,10 +30,44 @@ fun RecipesList(
 
     Column(modifier = modifier) {
 
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Text(
+                    text = stringResource(R.string.no_inspiration)
+                )
+
+                Button(
+                    onClick = {
+                        val randomRecipe = recipes.randomOrNull()
+                        randomRecipe?.let {
+                            onRecipeClick(it)
+                        }
+                    }
+                ) {
+                    Text(
+                        text = stringResource(R.string.surprise_me)
+                    )
+                }
+            }
+        }
+
         OutlinedTextField(
             value = searchQuery,
             onValueChange = { searchQuery = it },
-            label = { Text(stringResource(R.string.search_all_recipes)) },
+            label = {
+                Text(stringResource(R.string.search_all_recipes))
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -61,4 +93,3 @@ fun RecipesList(
         }
     }
 }
-
