@@ -1,6 +1,8 @@
 package be.odisee.arysmauroprojectarysmauro.components.screen
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -11,10 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import be.odisee.arysmauroprojectarysmauro.navigation.Screen
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import be.odisee.arysmauroprojectarysmauro.R
+import be.odisee.arysmauroprojectarysmauro.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

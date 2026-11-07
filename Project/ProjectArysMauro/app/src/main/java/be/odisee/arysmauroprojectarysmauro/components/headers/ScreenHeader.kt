@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import be.odisee.arysmauroprojectarysmauro.ui.theme.ProjectArysMauroTheme
 import be.odisee.arysmauroprojectarysmauro.R
+import be.odisee.arysmauroprojectarysmauro.ui.theme.ProjectArysMauroTheme
 
 @Composable
 fun ScreenHeader(text: String) {

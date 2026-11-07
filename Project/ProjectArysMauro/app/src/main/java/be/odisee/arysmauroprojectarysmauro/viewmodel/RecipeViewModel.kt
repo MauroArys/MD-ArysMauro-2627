@@ -5,7 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import be.odisee.arysmauroprojectarysmauro.data.*
+import be.odisee.arysmauroprojectarysmauro.data.AddCommentRequest
+import be.odisee.arysmauroprojectarysmauro.data.AddRecipeRequest
+import be.odisee.arysmauroprojectarysmauro.data.AliasUpdate
+import be.odisee.arysmauroprojectarysmauro.data.Comment
+import be.odisee.arysmauroprojectarysmauro.data.LikeInfo
+import be.odisee.arysmauroprojectarysmauro.data.Recipe
+import be.odisee.arysmauroprojectarysmauro.data.RecipesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

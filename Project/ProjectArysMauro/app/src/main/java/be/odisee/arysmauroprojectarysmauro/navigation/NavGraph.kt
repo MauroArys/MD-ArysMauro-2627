@@ -1,14 +1,24 @@
 package be.odisee.arysmauroprojectarysmauro.navigation
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -16,11 +26,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import be.odisee.arysmauroprojectarysmauro.R
-import be.odisee.arysmauroprojectarysmauro.components.recipes.AddRecipeScreen
-import be.odisee.arysmauroprojectarysmauro.components.profile.ProfileScreen
 import be.odisee.arysmauroprojectarysmauro.components.detail.RecipeDetailScreen
-import be.odisee.arysmauroprojectarysmauro.components.recipes.RecipesList
+import be.odisee.arysmauroprojectarysmauro.components.profile.ProfileScreen
+import be.odisee.arysmauroprojectarysmauro.components.recipes.AddRecipeScreen
 import be.odisee.arysmauroprojectarysmauro.components.recipes.MyRecipeList
+import be.odisee.arysmauroprojectarysmauro.components.recipes.RecipesList
 import be.odisee.arysmauroprojectarysmauro.viewmodel.RecipeViewModel
 import be.odisee.arysmauroprojectarysmauro.viewmodel.SortType
 
