@@ -63,6 +63,8 @@ fun RecipeDetailScreen(
         mutableStateOf("")
     }
 
+
+
     val heeftAlComment =
         viewModel.commentsForRecipe.any {
             it.alias.equals(huidigeGebruiker, ignoreCase = true)
@@ -264,6 +266,8 @@ fun RecipeDetailScreen(
                                 text = comment.alias,
                                 style = MaterialTheme.typography.titleSmall
                             )
+
+                            Spacer(Modifier.height(4.dp))
 
                             if (comment.alias == huidigeGebruiker) {
 

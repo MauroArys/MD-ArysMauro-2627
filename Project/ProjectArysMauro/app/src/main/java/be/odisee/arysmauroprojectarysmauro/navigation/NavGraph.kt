@@ -146,7 +146,14 @@ fun NavGraph(
                 }
             ) { innerPadding ->
 
-                val myRecipes = uiState.mijnRecepten
+                val myRecipes =
+                    when (uiState.sortType) {
+                        SortType.LIKES ->
+                            uiState.mijnRecepten.sortedByDescending { it.likes }
+
+                        SortType.DATUM ->
+                            uiState.mijnRecepten.sortedByDescending { it.datumAangemaakt }
+                    }
 
                 MyRecipeList(
                     modifier = Modifier.padding(innerPadding),
