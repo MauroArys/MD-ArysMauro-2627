@@ -186,6 +186,7 @@ class RecipeViewModel : ViewModel() {
                         )
                     }
                     loadMijnRecepten(295)
+                    reload()
                 } else {
                     println("Kon recept niet liken: ${response.message}")
                 }
@@ -223,6 +224,8 @@ class RecipeViewModel : ViewModel() {
                             mijnRecepten = updatedMine
                         )
                     }
+                    loadMijnRecepten(295)
+                    reload()
 
                 } else {
                     println("Kon like niet verwijderen: ${response.message}")
