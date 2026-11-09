@@ -77,10 +77,10 @@ fun RecipeDetailScreen(
 
     // Voer deze code uit wanneer key verandert!
     LaunchedEffect(recipeId) {
-        viewModel.clearLikes();
-        viewModel.clearComments();
+        viewModel.clearLikes()
+        viewModel.clearComments()
 
-        viewModel.loadCommentsForRecipe(recipeId);
+        viewModel.loadCommentsForRecipe(recipeId)
     }
 
     //indien recept niet gevonden keert hij terug
