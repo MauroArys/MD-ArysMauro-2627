@@ -58,18 +58,18 @@ fun RecipeDetailScreen(
 ) {
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState()
+    //huidig recept ophalen
     val currentRecipe = uiState.recipes.firstOrNull { it.id == recipeId }
+    //wat gebruiker heeft getypt
     var commentText by remember {
         mutableStateOf("")
     }
-
-
-
+    //heeft gebruiker al comment?
     val heeftAlComment =
         viewModel.commentsForRecipe.any {
             it.alias.equals(huidigeGebruiker, ignoreCase = true)
         }
-
+    //comment bewerken
     var editingCommentId by remember {
         mutableStateOf<Int?>(null)
     }
@@ -83,6 +83,7 @@ fun RecipeDetailScreen(
         viewModel.loadCommentsForRecipe(recipeId);
     }
 
+    //indien recept niet gevonden keert hij terug
     if (currentRecipe == null) {
         onBack()
         return
@@ -172,7 +173,7 @@ fun RecipeDetailScreen(
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8B4513))
                     ) {
-                        Text("Wie heeft geliked?")
+                        Text(stringResource(R.string.who_likes))
                     }
                 }
             }
@@ -212,7 +213,7 @@ fun RecipeDetailScreen(
                 ) {
 
                     Text(
-                        text = "Geliked door:",
+                        text = stringResource(R.string.gelike_door),
                         style = MaterialTheme.typography.titleLarge
                     )
 
@@ -281,7 +282,7 @@ fun RecipeDetailScreen(
                                     ) {
                                         Icon(
                                             imageVector = Icons.Default.Edit,
-                                            contentDescription = "Bewerk comment"
+                                            contentDescription = stringResource(R.string.update_comment)
                                         )
                                     }
 
@@ -292,7 +293,7 @@ fun RecipeDetailScreen(
                                     ) {
                                         Icon(
                                             imageVector = Icons.Default.Delete,
-                                            contentDescription = "Verwijder comment"
+                                            contentDescription = stringResource(R.string.delete_comment)
                                         )
                                     }
                                 }
@@ -384,6 +385,7 @@ fun RecipeDetailScreen(
                 .padding(top = 16.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
+            //delen knop
             Button(
                 onClick = {
                     val shareText = "Deel dit recept: ${currentRecipe.titel}"
@@ -399,7 +401,7 @@ fun RecipeDetailScreen(
             ) {
                 Text(stringResource(R.string.detail_share))
             }
-
+            //terug knop
             Button(
                 onClick = onBack,
                 shape = RoundedCornerShape(50),

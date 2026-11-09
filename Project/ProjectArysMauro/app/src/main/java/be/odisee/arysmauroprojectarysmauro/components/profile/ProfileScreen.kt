@@ -34,14 +34,12 @@ fun ProfileScreen(
     uiState: RecipeUiState
 ) {
 
+    //nieuwe alias bijhouden. Het veld past automatisch aan!
     var nieuweAlias by remember(uiState.huidigeAlias) {
         mutableStateOf(uiState.huidigeAlias)
     }
 
     var isSaving by remember { mutableStateOf(false) }
-
-
-
 
     Column(
         modifier = modifier
@@ -75,6 +73,7 @@ fun ProfileScreen(
 
         Spacer(Modifier.height(16.dp))
 
+        //opslaan knop
         Button(
             onClick = {
                 isSaving = true

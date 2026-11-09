@@ -28,8 +28,10 @@ fun MyRecipeList(
     onDelete: (Recipe) -> Unit,
     huidigeGebruiker: String
 ) {
+    //zoekterm
     var searchQuery by remember { mutableStateOf("") }
 
+    //geeft het gezochte recept weer
     val filteredRecipes = recipes.filter {
         it.titel.contains(searchQuery, ignoreCase = true)
     }

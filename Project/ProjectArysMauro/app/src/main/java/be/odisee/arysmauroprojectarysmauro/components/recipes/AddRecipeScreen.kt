@@ -35,10 +35,12 @@ fun AddRecipeScreen(
     var ingredienten by remember { mutableStateOf("") }
     var stappen by remember { mutableStateOf("") }
 
+    //error states: bewaren de foutmeldingen
     var titelError by remember { mutableStateOf<String?>(null) }
     var tijdError by remember { mutableStateOf<String?>(null) }
     var stappenError by remember { mutableStateOf<String?>(null) }
 
+    //fouten die uit api komen
     val backendErrors = viewModel.backendErrors
 
     fun validate(): Boolean {
@@ -75,8 +77,8 @@ fun AddRecipeScreen(
             value = titel,
             onValueChange = { titel = it; validate() },
             label = { Text(stringResource(R.string.add_recipe_field_title)) },
-            isError = titelError != null,
-            supportingText = { titelError?.let { Text(it, color = MaterialTheme.colorScheme.error) } },
+            isError = titelError != null, //rode rand indien fout
+            supportingText = { titelError?.let { Text(it, color = MaterialTheme.colorScheme.error) } }, //toont foutmelding onder het veld
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -129,6 +131,7 @@ fun AddRecipeScreen(
                             tijd = tijd.toInt(),
                             afbeelding = null
                         )
+                        //terug naar vorig scherm
                         onBack()
                     }
                 },

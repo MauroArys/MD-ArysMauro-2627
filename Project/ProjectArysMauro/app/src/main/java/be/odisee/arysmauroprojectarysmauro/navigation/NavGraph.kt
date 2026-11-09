@@ -52,6 +52,7 @@ fun NavGraph(
             val uiState by sharedViewModel.uiState.collectAsState()
             val huidigeAlias = uiState.huidigeAlias
 
+            //wanneer je terug naar dit scherm komt zullen de recepten opnieuw geladen worden
             LaunchedEffect(navController.currentBackStackEntry?.destination?.route) {
                 if (navController.currentBackStackEntry?.destination?.route == Screen.All.route) {
                     sharedViewModel.reload()
@@ -89,9 +90,11 @@ fun NavGraph(
                     ) {
                         CircularProgressIndicator()
                     }
+                    //voorkomt dat de rest van de ui al wordt opgebouwd terwijl de data nog niet beschikbaar is.
                     return@Scaffold
                 }
 
+                //sorteren
                 val sortedRecipes =
                     when (uiState.sortType) {
                         SortType.LIKES -> uiState.recipes.sortedByDescending { it.likes }

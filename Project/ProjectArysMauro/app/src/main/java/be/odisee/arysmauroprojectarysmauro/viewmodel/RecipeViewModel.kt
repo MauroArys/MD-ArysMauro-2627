@@ -145,6 +145,7 @@ class RecipeViewModel : ViewModel() {
 
                 if (response.ontbrekendeVelden != null) {
                     backendErrors = response.ontbrekendeVelden
+                    //stop deze coroutine
                     return@launch
                 }
 

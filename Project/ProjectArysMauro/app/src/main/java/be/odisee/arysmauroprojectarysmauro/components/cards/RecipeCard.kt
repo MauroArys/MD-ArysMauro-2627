@@ -37,6 +37,7 @@ fun RecipeCard(
     onLike: () -> Unit,
     onDelete: (() -> Unit)? = null
 ) {
+    //is dit mijn eigen recept?
     val isEigenRecept =
         aangemaaktDoor.trim().equals(huidigeGebruiker.trim(), ignoreCase = true)
 
@@ -60,10 +61,12 @@ fun RecipeCard(
 
                 Spacer(Modifier.height(4.dp))
 
+                //likes
                 Text(
                     text = "${stringResource(R.string.label_likes)} $likes",
                     style = MaterialTheme.typography.bodyMedium
                 )
+                //datum
                 Text(
                     text = "${stringResource(R.string.label_date)} $date",
                     style = MaterialTheme.typography.bodySmall
@@ -88,6 +91,7 @@ fun RecipeCard(
                 }
 
 
+                //toont vuilbakje indien eigen recept
                 if (isEigenRecept && onDelete != null) {
                     IconButton(onClick = onDelete) {
                         Icon(

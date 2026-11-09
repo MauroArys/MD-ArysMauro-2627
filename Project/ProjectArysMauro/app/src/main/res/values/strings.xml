@@ -84,7 +84,11 @@
 
     <string name="comment">Reactie</string>
     <string name="place_comment">Plaatsen</string>
+    <string name="update_comment">Bewerk comment</string>
+    <string name="delete_comment">Verwijder comment</string>
+    <string name="save_comment">Opslaan</string>
 
-    <string name="update_comment">Opslaan</string>
+    <string name="who_likes">Wie heeft geliked?</string>
+    <string name="gelike_door">Geliked door:</string>
 
 </resources>

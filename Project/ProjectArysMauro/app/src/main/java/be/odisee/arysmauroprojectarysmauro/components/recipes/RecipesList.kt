@@ -33,8 +33,10 @@ fun RecipesList(
     onLike: (Recipe) -> Unit,
     onDelete: (Recipe) -> Unit
 ) {
+    //zoekterm
     var searchQuery by remember { mutableStateOf("") }
 
+    //geeft het gezochte recept weer
     val filteredRecipes = recipes.filter {
         it.titel.contains(searchQuery, ignoreCase = true)
     }
@@ -54,6 +56,7 @@ fun RecipesList(
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
+                //geeft een random recept terug
                 Text(
                     text = stringResource(R.string.no_inspiration)
                 )
