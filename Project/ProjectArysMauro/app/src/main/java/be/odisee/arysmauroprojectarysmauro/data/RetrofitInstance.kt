@@ -6,6 +6,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
+// Project Test - Code : SDFGBRTY
 private const val BASE_URL = "https://stevenop.be/recipes/api/"
 
 private val json = Json { ignoreUnknownKeys = true }
