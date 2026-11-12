@@ -18,8 +18,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 // Project Test - Code : SDFGBRTY
+
+// Project Test - Finished
 class RecipeViewModel : ViewModel() {
 
     //States
@@ -81,6 +84,8 @@ class RecipeViewModel : ViewModel() {
 
                 _uiState.update {
                     it.copy(huidigeAlias = response.data.alias)
+                    it.copy(ervaring = response.data.ervaring)
+                    it.copy(requestCount = response.data.requestCount)
                 }
 
             } catch (e: Exception) {
@@ -91,22 +96,26 @@ class RecipeViewModel : ViewModel() {
 
 
     // Alias updaten
-    fun updateAlias(nieuweAlias: String) {
+    fun updateAlias(nieuweAlias: String, nieuweErvaring: Int) {
         viewModelScope.launch {
             try {
-                RecipesApi.retrofitService.updateAlias(headers, AliasUpdate(nieuweAlias))
+                val response = RecipesApi.retrofitService.updateAlias(headers, AliasUpdate(nieuweAlias, nieuweErvaring))
 
 
                 _uiState.update {
-                    it.copy(huidigeAlias = nieuweAlias)
+                    it.copy(huidigeAlias = response.data.alias)
+                    it.copy(ervaring = response.data.ervaring)
+
                 }
 
-
             } catch (e: Exception) {
-                println("Kon alias niet updaten: ${e.message}")
+                println("Kon alias en ervaring niet updaten: ${e.message}")
+
             }
         }
     }
+
+
 
     // Mijn recepten laden
     fun loadMijnRecepten(gebruikerId: Int) {

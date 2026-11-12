@@ -39,6 +39,10 @@ fun ProfileScreen(
         mutableStateOf(uiState.huidigeAlias)
     }
 
+    var nieuweErvaring by remember(uiState.ervaring) {
+        mutableStateOf(uiState.ervaring)
+    }
+
     var isSaving by remember { mutableStateOf(false) }
 
     Column(
@@ -57,6 +61,8 @@ fun ProfileScreen(
                 Text(stringResource(R.string.profile_name_label, "Mauro Arys"))
                 Text(stringResource(R.string.profile_student_number_label, "r1162018"))
                 Text(stringResource(R.string.profile_alias_label, uiState.huidigeAlias))
+                Text(stringResource(R.string.profile_requestCount, uiState.requestCount))
+                Text(stringResource(R.string.profile_ervaring, uiState.ervaring))
             }
         }
 
@@ -73,11 +79,24 @@ fun ProfileScreen(
 
         Spacer(Modifier.height(16.dp))
 
+        Text(stringResource(R.string.profile_new), style = MaterialTheme.typography.titleLarge)
+
+        OutlinedTextField(
+            value = nieuweErvaring.toString(),
+            onValueChange = { nieuweErvaring = it.toIntOrNull() ?: 0},
+            isError = nieuweErvaring !in 0..99,
+            label = { Text(stringResource(R.string.profile_new_ervaring)) },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(Modifier.height(16.dp))
+
+
         //opslaan knop
         Button(
             onClick = {
                 isSaving = true
-                viewModel.updateAlias(nieuweAlias)
+                viewModel.updateAlias(nieuweAlias, nieuweErvaring)
                 isSaving = false
             },
             modifier = Modifier.fillMaxWidth()

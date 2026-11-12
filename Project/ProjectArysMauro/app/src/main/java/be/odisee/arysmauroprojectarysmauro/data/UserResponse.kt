@@ -15,7 +15,9 @@ data class GebruikerData(
     val voornaam: String,
     val nummer: String,
     val laatstActief: String,
-    val alias: String
+    val alias: String,
+    val requestCount: Int,
+    val ervaring: Int
 )
 
 @Serializable

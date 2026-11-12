@@ -91,4 +91,10 @@
     <string name="who_likes">Wie heeft geliked?</string>
     <string name="gelike_door">Geliked door:</string>
 
+
+    <string name="profile_requestCount">Aantal requests: %1$s</string>
+    <string name="profile_ervaring">Ervaring: %1$s</string>
+    <string name="profile_new">Nieuwe ervaring</string>
+    <string name="profile_new_ervaring">Nieuwe ervaring (0 - 99)</string>
+
 </resources>

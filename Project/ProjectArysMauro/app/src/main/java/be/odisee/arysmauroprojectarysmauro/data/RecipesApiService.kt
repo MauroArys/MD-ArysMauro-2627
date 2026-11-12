@@ -23,8 +23,8 @@ interface RecipesApiService {
     @POST("gebruiker")
     suspend fun updateAlias(
         @HeaderMap headers: Map<String, String>,
-        @Body aliasUpdate: AliasUpdate
-    ): StatusMessageResponse
+        @Body Gegevensupdate: AliasUpdate
+    ): AliasUpdateResponse
 
     @GET("gebruiker/{id}/recepten")
     suspend fun getReceptenVanGebruiker(

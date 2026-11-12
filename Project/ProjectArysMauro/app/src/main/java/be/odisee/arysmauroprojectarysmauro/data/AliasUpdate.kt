@@ -4,5 +4,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AliasUpdate(
-    val alias: String
+    val alias: String,
+    val ervaring: Int
 )
+
+@Serializable
+data class AliasUpdateResponse(
+    val status: Int,
+    val data: GebruikerData
+)
+

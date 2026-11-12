@@ -6,6 +6,8 @@ import be.odisee.arysmauroprojectarysmauro.data.Recipe
 data class RecipeUiState(
     val recipes: List<Recipe> = emptyList(),
     val huidigeAlias: String = "",
+    val requestCount: Int = 0,
+    val ervaring: Int = 0,
     val mijnRecepten: List<Recipe> = emptyList(),
     val sortType: SortType = SortType.LIKES,
     val isLoading: Boolean = false,
